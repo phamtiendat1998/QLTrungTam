@@ -1,0 +1,492 @@
+/* PreLoad */
+
+.activeweb {
+    color: #f5593d !important;
+}
+.nav-pills .nav-link.active{
+    background-color: #f5593d !important;
+}
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background-color: #f5593d;
+    -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+    animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+    0% {
+        -webkit-transform: perspective(120px)
+    }
+    50% {
+        -webkit-transform: perspective(120px) rotateY(180deg)
+    }
+    100% {
+        -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg)
+    }
+}
+
+@keyframes sk-rotateplane {
+    0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+    }
+    50% {
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+    }
+    100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+}
+
+.content-body {
+    display: none;
+    overflow: hidden;
+}
+
+/* Icon Scroll */
+
+.scroll-downs {
+    position: absolute;
+    top: 550px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 34px;
+    height: 55px;
+}
+
+.mousey {
+    width: 3px;
+    padding: 10px 15px;
+    height: 35px;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    opacity: 0.75;
+    box-sizing: content-box;
+}
+
+.scroller {
+    width: 3px;
+    height: 10px;
+    border-radius: 25%;
+    background-color: #fff;
+    animation-name: scroll;
+    animation-duration: 2.2s;
+    animation-timing-function: cubic-bezier(.15, .41, .69, .94);
+    animation-iteration-count: infinite;
+}
+
+@keyframes scroll {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(15px);
+        opacity: 0;
+    }
+}
+
+.navbar-brand img {
+    width: 150px;
+    height: 50px;
+}
+
+.navbar .navbar-brand {
+    padding: 0;
+}
+
+.presentation-title {
+    font-size: 50px;
+}
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.description-sub {
+    margin-top: 25px;
+}
+
+/* Slider Khóa học */
+
+
+.card-header {
+    background-color: transparent;
+    border: none;
+}
+
+.card {
+    margin-left: auto;
+    margin-right: auto;
+}
+.slick-next:before, .slick-prev:before{
+    color: #f5593d;
+}
+/* Slider Review */
+
+.slider-for {
+    width: 100%;
+    height: 150px;
+    margin: 30px auto 1px;
+    overflow: hidden;
+}
+
+img {
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 100%; */
+    min-height: 100%;
+}
+
+.slider-nav {
+    width: 200px;
+    /* height: 110px; */
+    margin: auto;
+}
+
+.slider-nav .slick-track {
+    height: 100%;
+}
+
+.slick-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 50;
+    margin-top: -12px;
+}
+
+.slick-prev {
+    left: 0;
+}
+
+.slick-next {
+    right: 0;
+}
+
+.img-face img {
+    border-radius: 50%;
+    border: 2px solid orangered;
+}
+
+.item {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
+
+/* Footer */
+
+footer {
+    background-color: #0c1a1e;
+    min-height: 300px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.footerleft {
+    margin-top: 50px;
+    padding: 0 36px;
+}
+
+.logofooter {
+    margin-bottom: 10px;
+    font-size: 25px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.footerleft p {
+    color: #fff;
+    font-size: 12px !important;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 15px;
+}
+
+.footerleft p i {
+    width: 20px;
+    color: #999;
+}
+
+.footerleft img {
+    width: 200px;
+    height: 70px;
+}
+
+.paddingtop-bottom {
+    margin-top: 50px;
+}
+
+.footer-ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-left: 2px;
+}
+
+.footer-ul li {
+    line-height: 29px;
+    font-size: 12px;
+}
+
+.footer-ul li a {
+    color: #a0a3a4;
+    transition: color 0.2s linear 0s, background 0.2s linear 0s;
+}
+
+.footer-ul i {
+    margin-right: 10px;
+}
+
+.footer-ul li a:hover {
+    transition: color 0.2s linear 0s, background 0.2s linear 0s;
+    color: #ff670f;
+}
+
+.icon-ul {
+    list-style-type: none !important;
+    margin: 0px;
+    padding: 0px;
+}
+
+.icon-ul li {
+    line-height: 75px;
+    width: 100%;
+    float: left;
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+.copyright {
+    min-height: 40px;
+    background-color: #000000;
+}
+
+.copyright p {
+    text-align: left;
+    color: #FFF;
+    padding: 10px 0;
+    margin-bottom: 0px;
+}
+
+.heading7 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #d9d6d6;
+    margin-bottom: 22px;
+}
+
+.post p {
+    font-size: 12px;
+    color: #FFF;
+    line-height: 20px;
+}
+
+.post p span {
+    display: block;
+    color: #8f8f8f;
+}
+
+.bottom_ul {
+    list-style-type: none;
+    float: right;
+    margin-bottom: 0px;
+}
+
+.bottom_ul li {
+    float: left;
+    line-height: 40px;
+}
+
+.bottom_ul li:after {
+    content: "/";
+    color: #FFF;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.bottom_ul li a {
+    color: #FFF;
+    font-size: 12px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.email {
+    background: url("https://images.pexels.com/photos/7070/space-desk-workspace-coworking.jpg?w=1260&h=750&auto=compress&cs=tinysrgb");
+    min-height: 200px;
+    padding: 70px 0px;
+    width: 100%;
+}
+
+.email h2,
+.email p {
+    color: #FFF;
+    font-weight: 600;
+}
+
+#email-adresi {
+    margin-top: 20px;
+    border: none;
+    width: 50%;
+    height: 40px;
+    padding-left: 10px;
+}
+
+.footer {
+    padding: 50px 0px;
+    color: #ccc;
+    background-color: #222;
+}
+
+.footer h3 {
+    color: #FFF;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.footer ul {
+    font-size: 13px;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 15px;
+    color: #7F8C8D;
+}
+
+.footer ul li a {
+    padding: 10px 0px;
+    display: block;
+    color: #ccc;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.footer ul li a:hover {
+    color: #1e76a8;
+}
+
+.footer-bottom {
+    background-color: #111;
+    color: #282c2d;
+    font-size: 12px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+
+.footer-bottom p {
+    font-size: 13px;
+    color: #FFF;
+}
+
+.footer-top {
+    background-color: #f7f7f7;
+    text-align: center;
+}
+
+.footer-top .social-icons {
+    padding: 50px 0px;
+}
+
+.footer-top .social-icons i {
+    padding: 0px 20px;
+    font-size: 20px;
+    color: #aaa;
+}
+
+.footer-top .social-icons i:hover {
+    color: #1e76a8;
+}
+
+.logo {
+    color: #FFF;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+/* USER PROFILE */
+
+/* Scroll To Top */
+
+.btn-scroll {
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    cursor: pointer;
+    z-index: 10000;
+    display: none;
+}
+
+/* Edit ScrollBar */
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #f5593d;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsive Text */
+
+@media only screen and (max-width: 576px) {
+    h1,
+    .presentation-title {
+        font-size: 30px;
+    }
+    h2,
+    .presentation-subtitle {
+        font-size: 25px;
+    }
+    h4 {
+        font-size: 20px;
+    }
+    h5 {
+        font-size: 15px;
+    }
+}
+
+/* a */
+.nav-pills a{
+    color: #f5593d;
+}
+.nav-tabs .nav-link{
+    padding: 5px 10px;
+}
