@@ -1,5 +1,8 @@
 export function CourseList() {
     this.DSKH = [];
+    this.AddCourse = function (course) {
+        this.DSKH.push(course);
+    };
     // Tím Khóa Học theo tên
     this.TimKhoaHoc = function (tenkhoahoc) {
         var searchCourseList = new CourseList();

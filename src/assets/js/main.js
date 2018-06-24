@@ -54,6 +54,7 @@ import {
 } from '../../app/models/courselist';
 // --------------------------------End Import---------------------------------------
 var userList = new UserList();
+var userHocVienList = new UserList();
 var courseList = new CourseList();
 // --------------------------------Lấy Danh Sách----------------------------------
 // Người dùng:
@@ -61,6 +62,7 @@ function LayUserList() {
     userSV.LayDanhSachNguoiDung()
         .done(function (result) {
             SaveLocalStorage(result, 'LocalUserList');
+            taoPhanTrangUser(result);
         })
         .fail(function (error) {
             console.log(error);
@@ -71,7 +73,7 @@ function LayCourseList() {
     courseSV.LayDanhSachKhoaHoc()
         .done(function (result) {
             SaveLocalStorage(result, 'LocalCourseList');
-            courseList.DSKH = getDataFromLocal('LocalCourseList');
+            taoPhanTrangKH(result);
         })
         .fail(function (error) {
             console.log(error);
@@ -981,6 +983,8 @@ function LoadKhoaHocUser() {
         .done(function (result) {
             courseList.DSKH = result;
             loadKhoaHoc(courseList);
+            loadKhoaHocWeb(courseList);
+            loadKhoaHocMobile(courseList);
         })
         .fail(function (error) {
             console.log(error);
@@ -1011,14 +1015,74 @@ function loadKhoaHoc(courseList) {
         $('#divHienThiKhoaHoc').html(courseListContent);
     }
 }
+
+function loadKhoaHocWeb(courseList) {
+    var courseListContent = '';
+    for (var i = 0; i < courseList.DSKH.length; i++) {
+        var searchName = 'front';
+        if (courseList.DSKH[i].TenKhoaHoc.trim().toLowerCase().search(searchName.trim().toLowerCase()) !== -1) {
+            courseListContent += `  <div class="col-xl-3 col-lg-4 col-md-6 mt-2 mb-2 wow fadeInUp" data-wow-duration="2s">
+                                            <div class="card" style="width: 18rem;">
+                                                <img class="card-img-top" src="${courseList.DSKH[i].HinhAnh}" height="200">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">${courseList.DSKH[i].TenKhoaHoc}</h6>
+                                                    <h6 class="card-subtitle mb-3 text-danger">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-half-o"></i>
+                                                    </h6>
+                                                    <span>${courseList.DSKH[i].LuotXem} lượt xem</span>
+                                                    <hr>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm btn-chitietkhoahoc" data-MaKhoaHoc="${courseList.DSKH[i].MaKhoaHoc}">Chi Tiết</button>
+                                                </div>
+                                            </div>
+                                        </div>`;
+            $('#divHienThiKhoaHocWeb').html(courseListContent);
+        }
+    }
+}
+
+function loadKhoaHocMobile(courseList) {
+    var courseListContent = '';
+    for (var i = 0; i < courseList.DSKH.length; i++) {
+        var searchName = 'android';
+        if (courseList.DSKH[i].TenKhoaHoc.trim().toLowerCase().search(searchName.trim().toLowerCase()) !== -1) {
+            courseListContent += `  <div class="col-xl-3 col-lg-4 col-md-6 mt-2 mb-2 wow fadeInUp" data-wow-duration="2s">
+                                            <div class="card" style="width: 18rem;">
+                                                <img class="card-img-top" src="${courseList.DSKH[i].HinhAnh}" height="200">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">${courseList.DSKH[i].TenKhoaHoc}</h6>
+                                                    <h6 class="card-subtitle mb-3 text-danger">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-half-o"></i>
+                                                    </h6>
+                                                    <span>${courseList.DSKH[i].LuotXem} lượt xem</span>
+                                                    <hr>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm btn-chitietkhoahoc" data-MaKhoaHoc="${courseList.DSKH[i].MaKhoaHoc}">Chi Tiết</button>
+                                                </div>
+                                            </div>
+                                        </div>`;
+            $('#divHienThiKhoaHocMobile').html(courseListContent);
+        }
+    }
+}
 // Tìm Khóa Học
 function TimKhoaHoc() {
     var inputTimKhoaHoc = $('#timkhoahoc').val();
     if (inputTimKhoaHoc == "") {
         loadKhoaHoc(courseList);
+        loadKhoaHocWeb(courseList);
+        loadKhoaHocMobile(courseList);
     } else {
         var searchcourseList = courseList.TimKhoaHoc(inputTimKhoaHoc);
         loadKhoaHoc(searchcourseList);
+        loadKhoaHocWeb(searchcourseList);
+        loadKhoaHocMobile(searchcourseList);
     }
 }
 $('#timkhoahoc').keyup(TimKhoaHoc);
@@ -1044,6 +1108,100 @@ function ChiTietKhoaHoc() {
 }
 // --------------------------------ADMIN @@ ------------------------------------------------
 // ----------- Danh Sách Người Dùng----------------
+// Phân Trang User
+var limit = 10;
+window.hienthiTrang = hienthiTrang;
+
+function hienthiTrang(tongSoTrang, trang) {
+    var valSelectLoaiUser = $('.user-select-content').val();
+    if (valSelectLoaiUser == 'hv') {
+        userList.DSND = getDataFromLocal('LocalUserList');
+        var DSHV = new UserList()
+        for (var i = 0; i < userList.DSND.length; i++) {
+            if (userList.DSND[i].MaLoaiNguoiDung == 'HV') {
+                DSHV.AddUser(userList.DSND[i]);
+            }
+        }
+        var mangRecord = new UserList();
+        var vitriDau = (trang - 1) * limit;
+        for (var i = vitriDau; i < vitriDau + 10 && i < DSHV.DSND.length; i++) {
+            mangRecord.AddUser(DSHV.DSND[i]);
+        }
+        loadTableDanhSachNguoiDung(mangRecord.DSND);
+        tongSoTrang = Math.floor(DSHV.DSND.length / 10) + 1;
+        taoPag(tongSoTrang, trang);
+        $('#trang-' + trang).addClass('active');
+    } else if (valSelectLoaiUser == 'gv') {
+        userList.DSND = getDataFromLocal('LocalUserList');
+        var DSGV = new UserList()
+        for (var i = 0; i < userList.DSND.length; i++) {
+            if (userList.DSND[i].MaLoaiNguoiDung == 'GV') {
+                DSGV.AddUser(userList.DSND[i]);
+            }
+        }
+        var mangRecord = new UserList();
+        var vitriDau = (trang - 1) * limit;
+        for (var i = vitriDau; i < vitriDau + 10 && i < DSGV.DSND.length; i++) {
+            mangRecord.AddUser(DSGV.DSND[i]);
+        }
+        loadTableDanhSachNguoiDung(mangRecord.DSND);
+        tongSoTrang = Math.floor(DSGV.DSND.length / 10) + 1;
+        taoPag(tongSoTrang, trang);
+        $('#trang-' + trang).addClass('active');
+    } else {
+        userList.DSND = getDataFromLocal('LocalUserList');
+        var mangRecord = new UserList();
+        var vitriDau = (trang - 1) * limit;
+        for (var i = vitriDau; i < vitriDau + 10 && i < userList.DSND.length; i++) {
+            mangRecord.AddUser(userList.DSND[i]);
+        }
+        loadTableDanhSachNguoiDung(mangRecord.DSND);
+        taoPag(tongSoTrang, trang);
+        $('#trang-' + trang).addClass('active');
+    }
+}
+
+function taoPhanTrangUser(userlist) {
+    var demRecord = 0;
+    for (var i = 0; i < userlist.length; i++) {
+        demRecord++;
+    }
+    var tongSoTrang = Math.floor(demRecord / 10) + 1;
+    hienthiTrang(tongSoTrang, 1);
+}
+
+function taoPag(tongSoTrang, trangHienTai) {
+    var pagContent = '';
+    var prev = (trangHienTai == 1) ? "disabled" : "";
+    var next = (trangHienTai == tongSoTrang) ? "disabled" : "";
+    if (tongSoTrang !== 1) {
+        pagContent = `  <li class="page-item ${prev}" onclick="hienthiTrang(${tongSoTrang},${trangHienTai - 1})" ${prev}>
+                            <a class="page-link ${prev}" href="#pkp" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>`;
+        for (var i = 1; i <= tongSoTrang; i++) {
+            pagContent += ` <li class="page-item" id="trang-${i}" onclick="hienthiTrang(${tongSoTrang},${i})">
+                            <a class="page-link" href="#pkp">${i}</a>
+                        </li>`;
+        }
+        pagContent += ` <li class="page-item ${next}" onclick="hienthiTrang(${tongSoTrang},${trangHienTai + 1})" ${next}>
+                        <a class="page-link ${next}" href="#pkp" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>`;
+    }
+    $('#pagUser').html(pagContent);
+}
+// Bắt sự kiện change select
+$('.user-select-content').change(function () {
+    userList.DSND = getDataFromLocal('LocalUserList');
+    taoPhanTrangUser(userList.DSND);
+    $('#txtTuKhoa').val('');
+})
+
 // Tạo Table Người Dùng
 function loadTableDanhSachNguoiDung(DSND) {
     var noiDung = '';
@@ -1060,7 +1218,14 @@ function loadTableDanhSachNguoiDung(DSND) {
                 <td class="SoDT ">${nguoiDung.SoDT}</td>
                 <td class="MaLoaiNguoiDung">${nguoiDung.MaLoaiNguoiDung}</td>
                 <td class="TenLoaiNguoiDung">${nguoiDung.TenLoaiNguoiDung}</td>
-                <td><button class="btn btn-primary btnChinhSuaNguoiDung" TaiKhoan="${nguoiDung.TaiKhoan}"><i class="fa fa-edit"></i></button></td>
+                <td><div class="dropdown dropleft">
+                <button type="button" class="btn btn-primary btn-just-icon dropdown-toggle" data-toggle="dropdown">
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item btn btn-primary btnChinhSuaNguoiDung" TaiKhoan="${nguoiDung.TaiKhoan}"><i class="fa fa-edit" style="font-size:24px"></i></a>
+                 <a class="dropdown-item btn btn-danger btnXoaNguoiDung" TaiKhoan="${nguoiDung.TaiKhoan}"><i class="fa fa-remove" style="font-size:24px"></i></a>
+                </div>
+              </div></td>
             </tr>
            `;
     }
@@ -1068,23 +1233,40 @@ function loadTableDanhSachNguoiDung(DSND) {
 };
 // Load Người Dùng
 function loadDanhSachNguoiDung() {
-    userSV.LayDanhSachNguoiDung()
-        .done(function (result) {
-            userList.DSND = result;
-            loadTableDanhSachNguoiDung(userList.DSND);
-        })
-        .fail(function () {
-            console.log(error);
-        });
+    LayUserList();
 }
 // Tìm Người Dùng
 function TimNguoiDung() {
     var inputTimNguoiDung = $('#txtTuKhoa').val();
+    var valSelectLoaiUser = $('.user-select-content').val();
     if (inputTimNguoiDung == "") {
         loadDanhSachNguoiDung();
+        $('.pagination-user').css('display', 'block');
     } else {
-        var searchuserList = userList.TimNguoiDung(inputTimNguoiDung);
-        loadTableDanhSachNguoiDung(searchuserList.DSND);
+        if (valSelectLoaiUser == 'hv') {
+            var DSHV = new UserList();
+            for (var i = 0; i < userList.DSND.length; i++) {
+                if (userList.DSND[i].MaLoaiNguoiDung == 'HV') {
+                    DSHV.AddUser(userList.DSND[i]);
+                }
+            }
+            var searchuserList = DSHV.TimNguoiDung(inputTimNguoiDung);
+            loadTableDanhSachNguoiDung(searchuserList.DSND);
+        } else if (valSelectLoaiUser == 'gv') {
+            var DSGV = new UserList();
+            for (var i = 0; i < userList.DSND.length; i++) {
+                if (userList.DSND[i].MaLoaiNguoiDung == 'GV') {
+                    DSGV.AddUser(userList.DSND[i]);
+                }
+            }
+            var searchuserList = DSGV.TimNguoiDung(inputTimNguoiDung);
+            loadTableDanhSachNguoiDung(searchuserList.DSND);
+        } else {
+            var searchuserList = userList.TimNguoiDung(inputTimNguoiDung);
+            loadTableDanhSachNguoiDung(searchuserList.DSND);
+            $('.pagination-user').css('display', 'none');
+        }
+        $('.pagination-user').css('display', 'none');
     }
 }
 // Sự Kiện Tìm Người Dùng
@@ -1144,6 +1326,8 @@ function OpenPopupModalNguoiDung() {
                         });
                         loadDanhSachNguoiDung();
                         $('#btnDongForm').trigger('click');
+                        $('#txtTuKhoa').val('');
+                        $('.pagination-user').css('display', 'block');
                     }
                 })
                 .fail(function (error) {
@@ -1205,6 +1389,8 @@ $('body').delegate("#btnLuuNguoiDung", "click", function () {
                     title: 'Cập Nhật Thông Tin Thành Công'
                 });
                 loadDanhSachNguoiDung();
+                $('#txtTuKhoa').val("");
+                $('.pagination-user').css('display', 'block');
             }).fail(function (error) {
                 swal({
                     type: 'error',
@@ -1213,7 +1399,6 @@ $('body').delegate("#btnLuuNguoiDung", "click", function () {
             });
         $('#TaiKhoan').attr("readonly", false);
         $('#btnDongForm').trigger('click');
-        $('#txtTuKhoa').val("");
     }
 });
 //Xóa Người Dùng
@@ -1230,6 +1415,7 @@ $('body').delegate("#btnXoaNguoiDung", "click", function () {
                     )
                     loadDanhSachNguoiDung();
                     $('#txtTuKhoa').val("");
+                    $('.pagination-user').css('display', 'block');
                 })
                 .fail(function (error) {
                     swal({
@@ -1246,24 +1432,89 @@ $('body').delegate("#btnXoaNguoiDung", "click", function () {
         }
     });
 });
-// -----------------Danh Sách Khóa Học ---------------------
-// Load Danh Sách Khóa Học
-function loadDanhSachKhoaHoc() {
-    courseSV.LayDanhSachKhoaHoc()
-        .done(function (DSKH) {
-            courseList.DSKH = DSKH;
-            loadTableDanhSachKhoaHoc(courseList);
+//Xóa 1 Người Dùng 
+$('body').delegate(".btnXoaNguoiDung", "click", function () {
+    var id = $(this).attr("TaiKhoan");
+    userSV.XoaNguoiDung(id)
+        .done(function (result) {
+            swal(
+                'Đã Xóa',
+                'Bạn đã xóa thành công người dùng',
+                'success'
+            )
+            loadDanhSachNguoiDung();
+            $('#txtTuKhoa').val("");
+            $('.pagination-user').css('display', 'block');
         })
         .fail(function (error) {
-            console.log(error);
-        });
+            swal({
+                type: 'error',
+                title: 'Có người dùng đã được ghi danh khóa học nên không thể xóa',
+            });
+
+        })
+});
+// -----------------Danh Sách Khóa Học ---------------------
+// Phân Trang Khoa Hoc
+var limit = 10;
+window.hienthiTrangKH = hienthiTrangKH;
+
+function hienthiTrangKH(tongSoTrang, trang) {
+    courseList.DSKH = getDataFromLocal('LocalCourseList');
+    var mangRecord = new CourseList();
+    var vitriDau = (trang - 1) * limit;
+    for (var i = vitriDau; i < vitriDau + 10 && i < courseList.DSKH.length; i++) {
+        mangRecord.AddCourse(courseList.DSKH[i]);
+    }
+    loadTableDanhSachKhoaHoc(mangRecord.DSKH);
+    taoPagKH(tongSoTrang, trang);
+    $('#trang-' + trang).addClass('active');
+}
+
+function taoPhanTrangKH(courselist) {
+    var demRecord = 0;
+    for (var i = 0; i < courselist.length; i++) {
+        demRecord++;
+    }
+    var tongSoTrang = Math.floor(demRecord / 10) + 1;
+    hienthiTrangKH(tongSoTrang, 1);
+}
+
+function taoPagKH(tongSoTrang, trangHienTai) {
+    var pagContent = '';
+    var prev = (trangHienTai == 1) ? "disabled" : "";
+    var next = (trangHienTai == tongSoTrang) ? "disabled" : "";
+    if (tongSoTrang !== 1) {
+        pagContent = `  <li class="page-item ${prev}" onclick="hienthiTrangKH(${tongSoTrang},${trangHienTai - 1})" ${prev}>
+                            <a class="page-link ${prev}" href="#pkp" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>`;
+        for (var i = 1; i <= tongSoTrang; i++) {
+            pagContent += ` <li class="page-item" id="trang-${i}" onclick="hienthiTrangKH(${tongSoTrang},${i})">
+                            <a class="page-link" href="#pkp">${i}</a>
+                        </li>`;
+        }
+        pagContent += ` <li class="page-item ${next}" onclick="hienthiTrangKH(${tongSoTrang},${trangHienTai + 1})" ${next}>
+                        <a class="page-link ${next}" href="#pkp" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>`;
+    }
+    $('#pagCourse').html(pagContent);
+}
+// Load Danh Sách Khóa Học
+function loadDanhSachKhoaHoc() {
+    LayCourseList();
 }
 // Load Table
 function loadTableDanhSachKhoaHoc(courseList) {
     $('#tblDSKH').html("");
     var noiDung = '';
-    for (var i = 0; i < courseList.DSKH.length; i++) {
-        var khoaHoc = courseList.DSKH[i];
+    for (var i = 0; i < courseList.length; i++) {
+        var khoaHoc = courseList[i];
         noiDung +=
             `
             <tr class="trKhoaHoc">
@@ -1274,7 +1525,14 @@ function loadTableDanhSachKhoaHoc(courseList) {
                 <td class="HinhAnh"><img src="${khoaHoc.HinhAnh}" width="100" height="50"/></td>
                 <td class="LuotXem">${khoaHoc.LuotXem}</td>
                 <td class="NguoiTao">${khoaHoc.NguoiTao}</td>
-                <td><button class="btn btn-primary btnChinhSuaKH" MaKhoaHoc="${khoaHoc.MaKhoaHoc}"><i class="fa fa-edit"></i></button></td>
+                <td><div class="dropdown dropleft">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item btn btn-primary btnChinhSuaKH" MaKhoaHoc="${khoaHoc.MaKhoaHoc}"><i class="fa fa-edit" style="font-size:24px"></i></a>
+                  <a class="dropdown-item btn btn-danger btnXoaKhoaHoc" MaKhoaHoc="${khoaHoc.MaKhoaHoc}"><i class="fa fa-remove" style="font-size:24px"></i></a>
+                </div>
+              </div></td> 
             </tr>
            `;
     }
@@ -1295,7 +1553,6 @@ function OpenPopupModalKhoaHoc() {
     $('.modal-title').html(modalTilte);
     $('.modal-footer').html(modalFooter);
     $('#btnPopupModal').trigger('click');
-
 }
 // Sự kiện đóng modal
 $('body').delegate('#btnDongKH', 'click', function () {
@@ -1331,9 +1588,34 @@ $('body').delegate("#btnThemKH", "click", function () {
                 $('#btnDongForm').trigger('click');
                 $('.txtF').val("");
                 loadDanhSachKhoaHoc();
+                $('#txtTuKhoaKH').val("");
+                $('.pagination-course').css('display', 'block');
             })
             .fail(function (error) {
-                console.log(error);
+                console.log(error.statusText);
+                if (error.statusText == 'Internal Server Error') {
+                    const toast = swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    toast({
+                        type: 'success',
+                        title: 'Thêm Khóa Học Thành Công'
+                    });
+                    $('#btnDongForm').trigger('click');
+                    $('.txtF').val("");
+                    loadDanhSachKhoaHoc();
+                    $('#txtTuKhoaKH').val("");
+                    $('.pagination-course').css('display', 'block');
+                } else {
+                    swal({
+                        type: 'error',
+                        title: 'Khoan....',
+                        text: 'Khóa Học Này Đã Tồn Tại',
+                    })
+                }
             });
     }
 });
@@ -1392,6 +1674,8 @@ $('body').delegate("#btnLuuKH", "click", function () {
                 loadDanhSachKhoaHoc();
                 $('#MaKhoaHoc').attr("readonly", false);
                 $('#btnDongForm').trigger('click');
+                $('#txtTuKhoaKH').val("");
+                $('.pagination-course').css('display', 'block');
             }).fail(function (error) {
                 swal({
                     type: 'error',
@@ -1415,6 +1699,7 @@ $('body').delegate("#btnXoaKhoaHoc", "click", function () {
                     )
                     loadDanhSachKhoaHoc();
                     $('#txtTuKhoaKH').val("");
+                    $('.pagination-course').css('display', 'block');
                 })
                 .fail(function (error) {
                     swal({
@@ -1431,14 +1716,38 @@ $('body').delegate("#btnXoaKhoaHoc", "click", function () {
         }
     })
 });
+//Xóa 1 Khóa Học
+$('body').delegate(".btnXoaKhoaHoc", "click", function () {
+    var id = $(this).attr("MaKhoaHoc");
+    courseSV.XoaKhoaHoc(id)
+        .done(function (result) {
+            swal(
+                'Đã Xóa',
+                'Kiểm tra lại, nếu có khóa học nào không xóa được vì khóa học đó đã ghi danh cho người dùng',
+                'success'
+            )
+            loadDanhSachKhoaHoc();
+            $('#txtTuKhoaKH').val("");
+            $('.pagination-course').css('display', 'block');
+        })
+        .fail(function (error) {
+            swal({
+                type: 'error',
+                title: 'Có khóa học đã ghi danh cho người dùng nên không thể xóa',
+            });
+
+        })
+});
 // Tìm khóa học
 function TimKhoaHocAdmin() {
     var inputTimKhoaHoc = $('#txtTuKhoaKH').val();
     if (inputTimKhoaHoc == "") {
         loadDanhSachKhoaHoc();
+        $('.pagination-course').css('display', 'block');
     } else {
         var searchcourseList = courseList.TimKhoaHocTheoMa(inputTimKhoaHoc);
-        loadTableDanhSachKhoaHoc(searchcourseList);
+        loadTableDanhSachKhoaHoc(searchcourseList.DSKH);
+        $('.pagination-course').css('display', 'none');
     }
 }
 $('#txtTuKhoaKH').keyup(TimKhoaHocAdmin);
@@ -1447,8 +1756,8 @@ function loadDanhSachHocVien() {
     userSV.LayThongTinHocVien()
         .done(function (DSND) {
             // load data table
-            userList.DSND = DSND;
-            loadTableDanhSachHocVien(userList);
+            userHocVienList.DSND = DSND;
+            loadTableDanhSachHocVien(userHocVienList);
             //console.log(DSKH);
         })
         .fail(function (error) {
@@ -1545,7 +1854,7 @@ function TimNguoiDungHocVien() {
     if (inputTimNguoiDung == "") {
         loadDanhSachHocVien();
     } else {
-        var searchuserList = userList.TimNguoiDungHocVien(inputTimNguoiDung);
+        var searchuserList = userHocVienList.TimNguoiDungHocVien(inputTimNguoiDung);
         loadTableDanhSachHocVien(searchuserList);
     }
 }
@@ -1556,7 +1865,7 @@ $(document).ready(function () {
     // User
     checkLoginUser();
     checkLoginAdmin();
-    // LayUserList();
+    LayUserList();
     // LayCourseList();
     loadThongTin();
     LoadKhoaHocUser();

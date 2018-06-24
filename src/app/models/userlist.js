@@ -1,5 +1,8 @@
 export function UserList() {
     this.DSND = [];
+    this.AddUser = function (user) {
+        this.DSND.push(user);
+    };
     this.TimNguoiDung = function (taikhoan) {
         var searchUserList = new UserList();
         var searchName = taikhoan.trim().toLowerCase();

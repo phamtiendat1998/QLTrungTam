@@ -22,177 +22,182 @@
 </head>
 
 <body>
-    <div class="page">
-        <!-- Main Navbar-->
-        <header class="header">
-            <nav class="navbar">
-                <!-- Search Box-->
-                <div class="search-box">
-                    <button class="dismiss">
-                        <i class="icon-close"></i>
-                    </button>
-                    <form id="searchForm" action="#" role="search">
-                        <input type="search" placeholder="What are you looking for..." class="form-control">
-                    </form>
-                </div>
-                <div class="container-fluid">
-                    <div class="navbar-holder d-flex align-items-center justify-content-between">
-                        <!-- Navbar Header-->
-                        <div class="navbar-header">
-                            <!-- Navbar Brand -->
-                            <a href="index-admin.html" class="navbar-brand d-none d-sm-inline-block pr-2">
-                                <div class="brand-text d-none d-lg-inline-block text-white">
-                                    <span>CyberSoft </span>
-                                    <strong>Admin</strong>
-                                </div>
-                                <div class="brand-text d-none d-sm-inline-block d-lg-none">
-                                    <strong>BD</strong>
-                                </div>
-                            </a>
-                            <!-- Toggle Button-->
-                            <a id="toggle-btn" href="#" class="menu-btn active">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </a>
-                        </div>
-                        <!-- Navbar Menu -->
-                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                            <!-- Search-->
-                            <li class="nav-item d-flex align-items-center">
-                                <a id="search" href="#">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </li>
-                            <!-- Notifications-->
-                            <li class="nav-item dropdown">
-                                <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    class="nav-link">
-                                    <i class="fa fa-bell-o"></i>
-                                    <span class="badge bg-red badge-corner">12</span>
-                                </a>
-                            </li>
-                            <!-- Messages                        -->
-                            <li class="nav-item dropdown">
-                                <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    class="nav-link">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-orange badge-corner">10</span>
-                                </a>
-                            </li>
-                            <!-- Languages dropdown    -->
-                            <li class="nav-item dropdown">
-                                <a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    class="nav-link language dropdown-toggle">
-                                    <img src="../../assets/img/flags/16/GB.png" alt="English">
-                                    <span class="d-none d-sm-inline-block">English</span>
-                                </a>
-                            </li>
-                            <!-- Logout    -->
-                            <li class="nav-item">
-                                <button type="button" class="nav-link logout btn btn-link btn-info" id="outAdmin">
-                                    <span class="d-none d-sm-inline">Logout</span>
-                                    <i class="fa fa-sign-out"></i>
-                                </button>
-                            </li>
-                        </ul>
+    <!-- LoadSpinner -->
+    <div class="spinner"></div>
+    <!-- Content -->
+    <div class="content-body">
+        <div class="page">
+            <!-- Main Navbar-->
+            <header class="header">
+                <nav class="navbar">
+                    <!-- Search Box-->
+                    <div class="search-box">
+                        <button class="dismiss">
+                            <i class="icon-close"></i>
+                        </button>
+                        <form id="searchForm" action="#" role="search">
+                            <input type="search" placeholder="What are you looking for..." class="form-control">
+                        </form>
                     </div>
-                </div>
-            </nav>
-        </header>
-        <div class="page-content d-flex align-items-stretch">
-            <!-- Side Navbar -->
-            <nav class="side-navbar">
-                <!-- Sidebar Header-->
-                <div class="sidebar-header d-flex align-items-center">
-                    <div class="ml-auto mr-auto">
-                        <h1 class="h4">Xin Chào,</h1>
-                        <p id="user-admin" class="text-bold"></p>
-                    </div>
-                </div>
-                <!-- Sidebar Navidation Menus-->
-                <span class="heading">Main</span>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="index-admin.html">
-                            <i class="fa fa-home"></i>
-                            </i>Home </a>
-                    </li>
-                    <li>
-                        <a href="user-list.html">
-                            <i class="fa fa-user"></i>
-                            </i>Danh Sách Người Dùng </a>
-                    </li>
-                    <li>
-                        <a href="course-list.html">
-                            <i class="fa fa-cube"></i>Danh Sách Khóa Học</a>
-                    </li>
-                    <li class="active">
-                        <a href="ghidanh-user.html">
-                            <i class="fa fa-check-square-o"></i>Ghi Danh Khóa Học</a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="content-inner">
-                <!-- Page Header-->
-                <header class="">
                     <div class="container-fluid">
-                        <h3 class="no-margin-bottom">Ghi Danh Khóa Học Cho Người Dùng</h3>
-                    </div>
-                </header>
-                <div class="container-fluid mt-5">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="input-group mb-3 mt-2">
-                                <input id="txtTuKhoaGhiDanh" type="text" class="form-control" placeholder="Nhập Tài Khoản của người dùng" aria-label="Nhập Tài Khoản của người dùng"
-                                    aria-describedby="basic-addon2">
+                        <div class="navbar-holder d-flex align-items-center justify-content-between">
+                            <!-- Navbar Header-->
+                            <div class="navbar-header">
+                                <!-- Navbar Brand -->
+                                <a href="index-admin.html" class="navbar-brand d-none d-sm-inline-block pr-2">
+                                    <div class="brand-text d-none d-lg-inline-block text-white">
+                                        <span>CyberSoft </span>
+                                        <strong>Admin</strong>
+                                    </div>
+                                    <div class="brand-text d-none d-sm-inline-block d-lg-none">
+                                        <strong>BD</strong>
+                                    </div>
+                                </a>
+                                <!-- Toggle Button-->
+                                <a id="toggle-btn" href="#" class="menu-btn active">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </a>
                             </div>
-                            <section class="tables pt-2">
-                                <div class="table-responsive">
-                                    <table class="table table-hover" id="tableUser">
-                                        <thead>
-                                            <tr>
-                                                <tr>
-                                                    <th>Tài Khoản</th>
-                                                    <th>Họ Tên</th>
-                                                    <th>Email</th>
-                                                    <th>Số Điện Thoại</th>
-                                                    <th>Tên Loại Người Dùng</th>
-                                                    <th>Ghi Danh</th>
-                                                </tr>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tblDSND-HV">
-                                        </tbody>
-                                    </table>
+                            <!-- Navbar Menu -->
+                            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                                <!-- Search-->
+                                <li class="nav-item d-flex align-items-center">
+                                    <a id="search" href="#">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </li>
+                                <!-- Notifications-->
+                                <li class="nav-item dropdown">
+                                    <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        class="nav-link">
+                                        <i class="fa fa-bell-o"></i>
+                                        <span class="badge bg-red badge-corner">12</span>
+                                    </a>
+                                </li>
+                                <!-- Messages                        -->
+                                <li class="nav-item dropdown">
+                                    <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        class="nav-link">
+                                        <i class="fa fa-envelope-o"></i>
+                                        <span class="badge bg-orange badge-corner">10</span>
+                                    </a>
+                                </li>
+                                <!-- Languages dropdown    -->
+                                <li class="nav-item dropdown">
+                                    <a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        class="nav-link language dropdown-toggle">
+                                        <img src="../../assets/img/flags/16/GB.png" alt="English">
+                                        <span class="d-none d-sm-inline-block">English</span>
+                                    </a>
+                                </li>
+                                <!-- Logout    -->
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link logout btn btn-link btn-info" id="outAdmin">
+                                        <span class="d-none d-sm-inline">Logout</span>
+                                        <i class="fa fa-sign-out"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <div class="page-content d-flex align-items-stretch">
+                <!-- Side Navbar -->
+                <nav class="side-navbar">
+                    <!-- Sidebar Header-->
+                    <div class="sidebar-header d-flex align-items-center">
+                        <div class="ml-auto mr-auto">
+                            <h1 class="h4">Xin Chào,</h1>
+                            <p id="user-admin" class="text-bold"></p>
+                        </div>
+                    </div>
+                    <!-- Sidebar Navidation Menus-->
+                    <span class="heading">Main</span>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="index-admin.html">
+                                <i class="fa fa-home"></i>
+                                </i>Home </a>
+                        </li>
+                        <li>
+                            <a href="user-list.html">
+                                <i class="fa fa-user"></i>
+                                </i>Danh Sách Người Dùng </a>
+                        </li>
+                        <li>
+                            <a href="course-list.html">
+                                <i class="fa fa-cube"></i>Danh Sách Khóa Học</a>
+                        </li>
+                        <li class="active">
+                            <a href="ghidanh-user.html">
+                                <i class="fa fa-check-square-o"></i>Ghi Danh Khóa Học</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="content-inner">
+                    <!-- Page Header-->
+                    <header class="">
+                        <div class="container-fluid">
+                            <h3 class="no-margin-bottom">Ghi Danh Khóa Học Cho Người Dùng</h3>
+                        </div>
+                    </header>
+                    <div class="container-fluid mt-5">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group mb-3 mt-2">
+                                    <input id="txtTuKhoaGhiDanh" type="text" class="form-control" placeholder="Nhập Tài Khoản của người dùng" aria-label="Nhập Tài Khoản của người dùng"
+                                        aria-describedby="basic-addon2">
                                 </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog
+                                <section class="tables pt-2">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="tableUser">
+                                            <thead>
+                                                <tr>
+                                                    <tr>
+                                                        <th>Tài Khoản</th>
+                                                        <th>Họ Tên</th>
+                                                        <th>Email</th>
+                                                        <th>Số Điện Thoại</th>
+                                                        <th>Tên Loại Người Dùng</th>
+                                                        <th>Ghi Danh</th>
+                                                    </tr>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblDSND-HV">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog
                                 " aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span id="btnDongForm" aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label for="KhoaHocGhiDanh">Chọn Khóa Học muốn ghi danh:</label>
-                                                    <select class="form-control txtF" id="KhoaHocGhiDanh">
-                                                    </select>
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span id="btnDongForm" aria-hidden="true">&times;</span>
+                                                    </button>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="KhoaHocGhiDanh">Chọn Khóa Học muốn ghi danh:</label>
+                                                        <select class="form-control txtF" id="KhoaHocGhiDanh">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </section>
-                            <button id="btnPopupModal" type="button" class="btn btn-primary btnModal" data-toggle="modal" data-target="#exampleModal">
-                                Launch demo modal
-                            </button>
+                                </section>
+                                <button id="btnPopupModal" type="button" class="btn btn-primary btnModal" data-toggle="modal" data-target="#exampleModal">
+                                    Launch demo modal
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -215,6 +220,8 @@
             })
         });
     </script>
+    <!-- Wow  -->
+    <script src="../../assets/js/user/wow.min.js"></script>
     <!-- Main File-->
     <script src="../../assets/js/admin/front.js "></script>
 </body>
